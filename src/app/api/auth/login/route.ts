@@ -6,17 +6,12 @@ import { createJwtToken } from "@/lib/jwt";
 
 export async function POST(request: NextRequest, context: {}) {
     const data  =  await request.json()
-
     const validUser = isValidUser(users, data)
-
-    if(validUser) {
-        const response = NextResponse.json({success: true}, {status: 200})
+    if(validUser) {    
         delete validUser.password
         const token = await createJwtToken(validUser)
-        response.cookies.set('authToken', token, { maxAge: 7200 })
-        return response
+        return NextResponse.json({token: token}, {status: 200})
+    } else {
+        return NextResponse.json({}, {status: 401});
     }
-
-    return NextResponse.json({success: false}, {status: 401});
-
 }

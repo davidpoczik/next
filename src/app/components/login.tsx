@@ -1,26 +1,41 @@
 'use client'
-import { SyntheticEvent } from "react"
+import { SyntheticEvent, useState } from "react"
+import { AuthContextType } from "../hooks/useAuth";
 
-type withTarget = SyntheticEvent & { target: {username: HTMLInputElement, password: HTMLInputElement}}
+type withTarget = React.FormEvent<HTMLFormElement>
 
-export default function LoginForm() {
+interface FormData {
+    username: string;
+    password: string;
+  }
+
+export default function LoginForm({context}: {context: AuthContextType | undefined}) {
+    const [formData, setFormData] = useState<FormData>({
+        username: '',
+        password: ''
+    })
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        const { name, value } = event.target
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }))
+    }
+
     const onSubmitHandler = async (event: withTarget ) => {
         event.preventDefault()
-        const form = event.target
-        const data = {
-            username: form.username.value,
-            password: form.password.value
+        const response = await fetch('/api/auth/login',  {body: JSON.stringify(formData), method: 'post'} )
+        if (response.status === 200) {
+            const {token} = await response.json()
+            context?.login(token)
         }
-
-
-    fetch('/api/auth/login',  {body: JSON.stringify(data), method: 'post'} ).then(response => {
-
-    })
     }
+
     return (
         <form action="" onSubmit={onSubmitHandler}>
-            <input type="text" name="username" id="username" placeholder="user name" />
-            <input type="text" name="password" id="password" placeholder="password" />
+            <input type="text" value={formData.username} name="username" id="username" onChange={handleInputChange} placeholder="user name" />
+            <input type="text" value={formData.password} name="password" id="password" onChange={handleInputChange} placeholder="password" />
             <input type="submit" />
         </form>
     )
