@@ -1,33 +1,24 @@
+
 import { User } from "./users"
 
-const jose = require('jose')
+const jwt = require('jsonwebtoken')
 
 export async function getSecret() {
-    console.log(process.env.SECRET_KEY)
-    const secretKey = process.env.SECRET_KEY || ''
-    const secret = new TextEncoder().encode(secretKey)
-}   
-
-export async function createJwtToken(data: User) {
-    const secret = await getSecret()
-  
-    
-    const alg = 'HS256'
-
-    const jwt = await new jose.SignJWT(data)
-        .setProtectedHeader({ alg })
-        .setIssuedAt()
-        .setExpirationTime('1h')
-        .sign(secret)
-        console.log(jwt)
-    return jwt
+    return process.env.SECRET_KEY || ''
 }
 
-export async function verifyJwtToken(token:any) {
+export async function createJwtToken(payload: User) {
     const secret = await getSecret()
-    const verifiedToken = await jose.jwtVerify(token, secret)
-    console.log(verifiedToken);
-    
-    const { payload, protectedHeader } = verifiedToken
-    return payload
+    console.log('scret', secret)
+    const token =  jwt.sign(payload, secret)
+    console.log(token, 'token')
+    return token
+}
+
+export async function verifyJwtToken(token:string, secret: string) {
+    console.log(token, secret)
+    const verifiedToken =  jwt.verify(token, secret)
+    console.log(verifiedToken, 'vrfd token');
+
+    return verifiedToken
 }

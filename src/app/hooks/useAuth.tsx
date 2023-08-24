@@ -19,7 +19,10 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
     const [user, setUser] = useState<User | null>(null)
 
     const login = async (token: string): Promise<void> => {
-        const decodedToken = await verifyJwtToken(token)
+        const secretResponse = await fetch('http://localhost:3000/api/auth/key', {method: 'GET'})
+        const secret = await secretResponse.json()
+        console.log(secret)
+        const decodedToken = await verifyJwtToken(token, secret)
         if(decodedToken) {
             setUser(decodedToken)
             localStorage.setItem('token', token)
