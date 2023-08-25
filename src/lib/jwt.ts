@@ -2,23 +2,28 @@
 import { User } from "./users"
 
 const jwt = require('jsonwebtoken')
+const secret = getSecret()
 
-export async function getSecret() {
+export function getSecret() {
     return process.env.SECRET_KEY || ''
 }
 
 export async function createJwtToken(payload: User) {
-    const secret = await getSecret()
-    console.log('scret', secret)
-    const token =  jwt.sign(payload, secret)
-    console.log(token, 'token')
-    return token
+    try {
+        const token = jwt.sign(payload, secret, { expiresIn: '1h' })
+        return token
+    } catch (error) {
+        console.error(`token sign failed: ${error}`)
+        return undefined
+    }
 }
 
-export async function verifyJwtToken(token:string, secret: string) {
-    console.log(token, secret)
-    const verifiedToken =  jwt.verify(token, secret)
-    console.log(verifiedToken, 'vrfd token');
-
-    return verifiedToken
+export  function verifyJwtToken(token: string) {
+    try {
+        const verifiedToken = jwt.verify(token, secret)
+        return verifiedToken
+    } catch (error) {
+        console.error(`token verify failed: ${error}`)
+        return undefined
+    }
 }

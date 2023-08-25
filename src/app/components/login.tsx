@@ -1,18 +1,22 @@
 'use client'
 import { SyntheticEvent, useState } from "react"
-import { AuthContextType } from "../hooks/useAuth";
+import { useDispatch } from "react-redux"
+import { login } from "../store/authSlice";
 
 type withTarget = React.FormEvent<HTMLFormElement>
 
 interface FormData {
     username: string;
     password: string;
-  }
+}
 
-export default function LoginForm({context}: {context: AuthContextType | undefined}) {
+export default function LoginForm() {
+    const dispatch = useDispatch()
+
+
     const [formData, setFormData] = useState<FormData>({
-        username: '',
-        password: ''
+        username: 'user',
+        password: 'user'
     })
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -25,11 +29,21 @@ export default function LoginForm({context}: {context: AuthContextType | undefin
 
     const onSubmitHandler = async (event: withTarget ) => {
         event.preventDefault()
-        const response = await fetch('/api/auth/login',  {body: JSON.stringify(formData), method: 'post'} )
+        const response = await fetch('/api/auth/login', {body: JSON.stringify(formData), method: 'post', cache: 'no-store'} )
         if (response.status === 200) {
-            const {token} = await response.json()
-            context?.login(token)
+            const {success, user} = await response.json()
+            if (success && user) {
+                dispatch(login(user))
+            }
+
         }
+    }
+
+    const onClickHandler = async (event: SyntheticEvent) => {
+        event.preventDefault()
+        const response = await fetch('/api/auth/verify',{method: 'post', cache: 'no-store'})
+        const json = await response.json()
+
     }
 
     return (
@@ -37,6 +51,9 @@ export default function LoginForm({context}: {context: AuthContextType | undefin
             <input type="text" value={formData.username} name="username" id="username" onChange={handleInputChange} placeholder="user name" />
             <input type="text" value={formData.password} name="password" id="password" onChange={handleInputChange} placeholder="password" />
             <input type="submit" />
+
+            <button onClick={onClickHandler}>verify</button>
+
         </form>
     )
 }
