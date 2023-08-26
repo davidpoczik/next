@@ -3,7 +3,6 @@ import './globals.css'
 import type { Metadata } from 'next'
 import StoreProvider from './store/authProvider'
 import { getUserFromCookie } from '@/lib/cookies'
-import UserStateSetter from './components/userStateSetter'
 
 
 export const metadata: Metadata = {
@@ -16,12 +15,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const userFromCookie = getUserFromCookie()
+  
   return (
     <html lang="en">
       <body>
-        <StoreProvider>
-          <UserStateSetter initialUserState={userFromCookie}></UserStateSetter>
+        <StoreProvider initialState={getUserFromCookie()}>
           <Header></Header>
           {children}
         </StoreProvider>

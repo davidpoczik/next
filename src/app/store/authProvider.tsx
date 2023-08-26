@@ -2,10 +2,14 @@
 
 import { Provider } from 'react-redux'
 import store from './authStore'
+import { User } from '@/lib/users'
+import { login } from './authSlice'
 
-const StoreProvider = ({ children }: {children: React.ReactNode}) => {
+const StoreProvider = ({ children, initialState }: {children: React.ReactNode, initialState: User | null}) => {
+    const user =  initialState
+    initialState &&  store.dispatch(login(initialState))
     return (
-        <Provider store={store}>
+        <Provider store={store} >
             {children}
         </Provider>
     )
