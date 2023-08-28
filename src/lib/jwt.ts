@@ -1,11 +1,7 @@
 
 import { User } from "./users"
 
-import {SignJWT, jwtVerify, type JWTPayload} from 'jose';
-
-
-
-
+import {SignJWT, jwtVerify} from 'jose';
 
 export function getSecret() {
     return process.env.SECRET_KEY || ''
@@ -29,11 +25,12 @@ export async function createJwtToken(payload: User) {
     }
 }
 
-export  async function verifyJwtToken(token: string) {
+export  async function verifyJwtToken(token: string): Promise<User| undefined>{
     try {
         const secret = new TextEncoder().encode(getSecret())
         const {payload} = await jwtVerify(token, secret);
-        return payload
+        const user: User = payload
+        return user
     } catch (error) {
         console.error(`token verify failed: ${error}`)
         return undefined

@@ -6,5 +6,9 @@ export default async function Person({ params }: { params: { id: string } }) {
     const id = params.id
     const person = await getPerson(id)
 
-    return <PersonItem person={person}></PersonItem>
+    return <>
+    <div className="container">
+    <PersonItem person={person} isListItem={false}></PersonItem>
+    </div>
+    </>
 }

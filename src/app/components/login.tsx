@@ -27,11 +27,11 @@ export default function LoginForm() {
         }))
     }
 
-    const onSubmitHandler = async (event: withTarget ) => {
+    const onSubmitHandler = async (event: withTarget) => {
         event.preventDefault()
-        const response = await fetch('/api/auth/login', {body: JSON.stringify(formData), method: 'post', cache: 'no-store'} )
+        const response = await fetch('/api/auth/login', { body: JSON.stringify(formData), method: 'post', cache: 'no-store' })
         if (response.status === 200) {
-            const {success, user} = await response.json()
+            const { success, user } = await response.json()
             if (success && user) {
                 dispatch(login(user))
             }
@@ -41,19 +41,22 @@ export default function LoginForm() {
 
     const onClickHandler = async (event: SyntheticEvent) => {
         event.preventDefault()
-        const response = await fetch('/api/auth/verify',{method: 'post', cache: 'no-store'})
+        const response = await fetch('/api/auth/verify', { method: 'post', cache: 'no-store' })
         const json = await response.json()
 
     }
 
     return (
-        <form action="" onSubmit={onSubmitHandler}>
-            <input type="text" value={formData.username} name="username" id="username" onChange={handleInputChange} placeholder="user name" />
-            <input type="text" value={formData.password} name="password" id="password" onChange={handleInputChange} placeholder="password" />
-            <input type="submit" />
+        <div className="container">
 
-            <button onClick={onClickHandler}>verify</button>
+            <form action="" onSubmit={onSubmitHandler}>
+                <input type="text" value={formData.username} name="username" id="username" onChange={handleInputChange} placeholder="user name" />
+                <input type="text" value={formData.password} name="password" id="password" onChange={handleInputChange} placeholder="password" />
+                <input className="btn btn-primary" type="submit" />
 
-        </form>
+              
+
+            </form>
+        </div>
     )
 }

@@ -9,7 +9,7 @@ export default function CompareButton() {
     const isAdmin = user?.role === 'admin'
     return (
         <>
-        {isLoggedIn && isAdmin ? <button>compare</button> : 'Cannot compare'}
+        {isLoggedIn && isAdmin ? <button className="btn btn-primary">compare</button> : 'Cannot compare'}
         </>
     )
 }

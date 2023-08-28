@@ -1,27 +1,34 @@
 import { Person } from "@/lib/characters";
 import CompareButton from "./compareButton";
 
-export default function PersonItem({ person }: { person: Person }) {
+export default function PersonItem({ person, isListItem }: { person: Person, isListItem: boolean }) {
     return (
-        <div>
-            <div>
-                name: {person.name}
+        <>
+            <div className="character-card">
+                <div>
+                    <h4>
+                        {person.name}
+                    </h4>
+                    {!isListItem && <div>
+                        <p>
+                            gender: {person.gender}
+                        </p>
+                        <p>
+                            hair color: {person.hair_color}
+                        </p>
+                        <p>
+                            height: {person.height}
+                        </p>
+                        <p>
+                            mass: {person.mass}
+                        </p>
+                        <p>
+                            <CompareButton></CompareButton>
+                        </p>
+                    </div>}
+
+                </div>
             </div>
-            <div>
-                gender: {person.gender}
-            </div>
-            <div>
-                hair color:   {person.hair_color}
-            </div>
-            <div>
-                height: {person.height}
-            </div>
-            <div>
-                mass: {person.mass}
-            </div>
-            <div>
-                <CompareButton></CompareButton>
-            </div>
-        </div>
+        </>
     )
 }

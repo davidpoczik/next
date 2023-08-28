@@ -8,22 +8,26 @@ const Header = () => {
     const { user } = useSelector((state: RootState) => state.user)
     const isLoggedIn = !!user
     return (
-        <div>
-            <div>
-                {user
-                    ? user.username
-                    : 'Guest'
-                }
+        <>
+            <div className="header">
+                <div className="header-title">Star wars character search</div>
+                <div>
+                    {user
+                        ? `name: ${user.username}`
+                        : 'name: Guest'
+                    }
+                
+                    {user
+                        ? ` Role: ${user.role}`
+                        : ''
+                    }
+                </div>
+                {isLoggedIn && <Logout />}
             </div>
-            <div>
-                {user
-                    ? ` Role: ${user.role}`
-                    : ''
-                }
-            </div>
-            {isLoggedIn && <Logout/>}
+
             {!isLoggedIn && <LoginForm></LoginForm>}
-        </div>
+        </>
+
     )
 }
 export default Header

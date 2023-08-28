@@ -13,7 +13,7 @@ export default function Form() {
     <>
     <br />
         <form action="" onSubmit={onSubmitHandler}>
-            <input type="text" placeholder="keyword" id="keyword" name="keyword" />
+            <input type="text" placeholder="type person name and press enter" id="keyword" name="keyword" />
         </form>
         <br />
     </>

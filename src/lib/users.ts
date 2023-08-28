@@ -1,9 +1,9 @@
+import { JWTPayload } from "jose"
 
 
-export type User = {
-    username: string,
-    password?: string,
-    role?: string
+export interface User extends JWTPayload {
+    role?: string,
+    password?: string
 }
 
 export const isValidUser = (users: User[], data: User): User | undefined => {

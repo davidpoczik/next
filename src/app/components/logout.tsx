@@ -11,7 +11,7 @@ const Logout = () => {
         })
     }
 
-    return <button onClick={onClickHandler}>
+    return <button className='btn-primary btn' onClick={onClickHandler}>
         Logout
     </button>
 }

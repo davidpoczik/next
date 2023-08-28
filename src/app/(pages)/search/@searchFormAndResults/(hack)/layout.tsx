@@ -10,8 +10,10 @@ export default function Layout({
 
     return (
         <>
-        <Form></Form>
-         {children}
+            <div className="container">
+                <Form></Form>
+                {children}
+            </div>
         </>
 
     )

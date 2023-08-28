@@ -10,9 +10,9 @@ export default function SearchResultListItem({person} : {person: Person}) {
     const id = person.url.split('/').at(-2)
     return (
         <>
-        <div key={id}>
+        <div className="character-list-item">
             <Link href={`/person/${id}`}>
-                <PersonItem person={person}></PersonItem>
+                <PersonItem person={person} isListItem={true}></PersonItem>
             </Link>
         </div>
         </>
