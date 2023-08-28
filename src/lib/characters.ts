@@ -1,30 +1,23 @@
-const fetchCharacters = async () => {
-    const fetchResponse = await fetch(`http://localhost:3000/api/search/`, {
-        cache: 'force-cache'
-    })
-    const characterList = await fetchResponse.json()
-    
-    return characterList
+export type Person = {
+    name: string,
+    height: string,
+    mass: string,
+    hair_color: string,
+    gender: string,
+    url: string
 }
 
-
-const fetchPeople = async (searchTerm?: string) => {
-    const response = 
-    await fetch(`https://swapi.dev/api/people${searchTerm ? '?search='+ searchTerm : ''}`, {
-        cache: 'force-cache'
-    })
-    const json = await response.json()
-    return json
+export type PeopleFetch = {
+    results: Person[],
+    count: number
+    nextPage: string
 }
 
-const fetchCharacter = async (id?: string, storeType = { cache: 'force-cache' }) => {
-    const response = 
-    await fetch(`https://swapi.dev/api/people/${id}`, {
-        cache: 'force-cache'
-    })
-    const json = await response.json()
-    return json
+export type PromisePerson = Person | Promise<Person>
+
+export async function getPerson(id: string): Person {
+    const response = await fetch(`${process.env.SWAPI_URL}${id}`, { cache: 'force-cache'})
+    const data = await response.json()
+
+    return data
 }
-
-export { fetchCharacters, fetchPeople, fetchCharacter }
-

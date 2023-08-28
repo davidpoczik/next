@@ -1,12 +1,17 @@
+import SearchResultList from "@/app/components/searchResultList"
+import { PeopleFetch } from "@/lib/characters"
+
 export default async function SearchFormAndResultsWithKeyword({params}: {params: {keyword: string}}) {
+
     const results = await fetch(`${process.env.SWAPI_URL}?search=${params.keyword || ''}`, { cache: 'force-cache' })
-    const parsedResults: {results: {name:string}[], count: number, nextPage: string} = await results.json()
-    
-    const list = parsedResults.results.map(el => <div>{el.name}</div>)
+
+    const parsedResult: PeopleFetch = await results.json()
+    const people = parsedResult.results
+
     return (
         <>
         <div>
-            {list}
+            <SearchResultList results={people}></SearchResultList>
         </div>
         </>
     )

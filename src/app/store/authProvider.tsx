@@ -6,7 +6,6 @@ import { User } from '@/lib/users'
 import { login } from './authSlice'
 
 const StoreProvider = ({ children, initialState }: {children: React.ReactNode, initialState: User | null}) => {
-    const user =  initialState
     initialState &&  store.dispatch(login(initialState))
     return (
         <Provider store={store} >

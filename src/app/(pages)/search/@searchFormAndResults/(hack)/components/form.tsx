@@ -16,7 +16,6 @@ export default function Form() {
             <input type="text" placeholder="keyword" id="keyword" name="keyword" />
         </form>
         <br />
-        <Link href='/compare'>home</Link>
     </>
     )
 }

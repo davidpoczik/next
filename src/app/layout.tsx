@@ -5,16 +5,16 @@ import { getUserFromCookie } from '@/lib/cookies'
 
 
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: {
   children: React.ReactNode
 }) {
-  
+  const userFromCookie = await getUserFromCookie()
   return (
     <html lang="en">
       <body>
-        <StoreProvider initialState={getUserFromCookie()}>
+        <StoreProvider initialState={userFromCookie}>
           <Header></Header>
           {children}
         </StoreProvider>

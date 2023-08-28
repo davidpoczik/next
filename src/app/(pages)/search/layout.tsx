@@ -16,12 +16,12 @@ export default function Layout({
     return (
         <>
             <section>
-                {children}
-            </section>
-            <section>
-
                 {searchFormAndResults}
             </section>
+            <section>
+                {children}
+            </section>
+
         </>
 
     )
