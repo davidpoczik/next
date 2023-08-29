@@ -2,17 +2,6 @@ import { NextResponse, NextRequest } from 'next/server'
 
 import { verifyJwtToken } from './lib/jwt'
 
-const publicRoutes = ['search']
-const userRoutes = ['person']
-const adminRoutes = ['compare']
-
-
-const protectRoutes = (request: NextRequest, response: Function) => {
-    if (request.nextUrl.pathname.startsWith('/compare')) {
-        console.log('compare')
-
-    }
-}
 export async function middleware(request: NextRequest) {
     const response = NextResponse
 

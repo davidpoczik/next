@@ -1,5 +1,5 @@
 export default function Compare() {
     return <>
-    compare asdas
+    <h3>character compare</h3>
     </>
 }

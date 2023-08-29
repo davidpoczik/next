@@ -18,6 +18,5 @@ export type PromisePerson = Person | Promise<Person>
 export async function getPerson(id: string): Promise<Person> {
     const response = await fetch(`${process.env.SWAPI_URL}${id}`, { cache: 'force-cache'})
     const data = await response.json()
-    console.log(data)
     return data
 }

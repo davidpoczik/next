@@ -199,3 +199,30 @@
   .character-list-item p {
     color: #bbb;
   }
+
+  .floatingList {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    color: black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+.floatingList a {
+  width: 100%;
+}
+
+.compareList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  flex-direction: row;
+}
+.compareList .character-card {
+  flex: 1;
+}
+.compareList .btn {
+  display: none;
+}

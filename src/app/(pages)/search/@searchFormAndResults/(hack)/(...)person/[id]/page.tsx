@@ -2,7 +2,12 @@ import Modal from "@/app/components/modal"
 import PersonItem from "@/app/components/personItem"
 import { getPerson } from "@/lib/characters"
 
+import type { Metadata } from 'next'
 
+export const metadata: Metadata = {
+  title: 'intercepted person',
+  description: 'search with a keyword and check your characters info'
+}
 
 export default async function Person({ params }: { params: { id: string } }) {
     const id = params.id
@@ -11,7 +16,7 @@ export default async function Person({ params }: { params: { id: string } }) {
     return (
         <Modal>
             <h3>intercepted</h3>
-            <PersonItem person={person}></PersonItem>
+            <PersonItem person={person} isListItem={false}></PersonItem>
         </Modal>
     )
 }

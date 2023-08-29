@@ -2,6 +2,7 @@ import { Person } from "@/lib/characters";
 import CompareButton from "./compareButton";
 
 export default function PersonItem({ person, isListItem }: { person: Person, isListItem: boolean }) {
+    const id = person.url.split('/').at(-2) || ''
     return (
         <>
             <div className="character-card">
@@ -22,10 +23,11 @@ export default function PersonItem({ person, isListItem }: { person: Person, isL
                         <p>
                             mass: {person.mass}
                         </p>
-                        <p>
-                            <CompareButton></CompareButton>
-                        </p>
+
                     </div>}
+                    <p>
+                            <CompareButton id={id}></CompareButton>
+                        </p>
 
                 </div>
             </div>

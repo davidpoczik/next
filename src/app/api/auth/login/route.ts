@@ -13,7 +13,7 @@ export async function POST(request: NextRequest, context: {}) {
     if (validUser) {
         const userWithoutPassword = {...validUser}
         userWithoutPassword.password = ''
-        const token = await createJwtToken(userWithoutPassword)
+        const token = await createJwtToken(userWithoutPassword) || ''
         const response = NextResponse.json({ success: true, user: userWithoutPassword }, { status: 200 })
         response.cookies.set({
             name: 'token',

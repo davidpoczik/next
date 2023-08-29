@@ -10,7 +10,7 @@ export const deleteTokenCookie = async () => {
 export const getUserFromCookie = async (): Promise< User | null> => {
     const token = cookies().get('token')?.value
     if (token) {
-        const decodedToken = await verifyJwtToken(token)
+        const decodedToken = await verifyJwtToken(token) || null
         return decodedToken
     }
     return null

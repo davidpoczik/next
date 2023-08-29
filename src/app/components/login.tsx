@@ -39,12 +39,6 @@ export default function LoginForm() {
         }
     }
 
-    const onClickHandler = async (event: SyntheticEvent) => {
-        event.preventDefault()
-        const response = await fetch('/api/auth/verify', { method: 'post', cache: 'no-store' })
-        const json = await response.json()
-
-    }
 
     return (
         <div className="container">
