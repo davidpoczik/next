@@ -3,6 +3,7 @@ import { NextResponse, NextRequest } from 'next/server'
 import { verifyJwtToken } from './lib/jwt'
 
 export async function middleware(request: NextRequest) {
+    console.log(request.nextUrl.pathname)
     const response = NextResponse
 
     if (request.nextUrl.pathname === '/') {
@@ -31,8 +32,6 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-    matcher: [
+    matcher: ['/search/:path*', '/compare/:path*', '/person/:path*', '/api/:path*', '/'],
 
-      '/((?!api|_next/).*)',
-    ],
   }
