@@ -7,7 +7,6 @@ export async function GET(request: NextRequest) {
     const token = cookies().get('token')?.value
     if(token) {
         const user = await verifyJwtToken(token)
-        console.log(user)
         response.json({user}, {status: 200})
     }
     return response

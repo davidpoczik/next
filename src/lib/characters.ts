@@ -5,18 +5,14 @@ export type Person = {
     hair_color: string,
     gender: string,
     url: string
+    id?: string
 }
 
-export type PeopleFetch = {
-    results: Person[],
-    count: number
-    nextPage: string
-}
 
 export type PromisePerson = Person | Promise<Person>
 
-export async function getPerson(id: string): Promise<Person> {
-    const response = await fetch(`${process.env.SWAPI_URL}${id}`, { cache: 'force-cache'})
-    const data = await response.json()
-    return data
+export const getPerson = async (id: string) => {
+    const result = await fetch(`http://localhost:3000/api/swapi/person/${id}`, { cache: 'force-cache' })
+    const person: Person = await result.json()
+    return person
 }

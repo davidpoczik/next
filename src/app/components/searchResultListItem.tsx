@@ -7,7 +7,9 @@ import Link from 'next/link'
 import PersonItem from "./personItem";
 
 export default function SearchResultListItem({person} : {person: Person}) {
+
     const id = person.url.split('/').at(-2)
+    person.id = id
     return (
         <>
         <div className="character-list-item">

@@ -3,7 +3,6 @@ import SearchResultListItem from "./searchResultListItem";
 
 
 export default function SearchResultList({ results }: { results: Person[] }) {
-
      return (<>
           <div className="search-results">
                <div className="character-list">

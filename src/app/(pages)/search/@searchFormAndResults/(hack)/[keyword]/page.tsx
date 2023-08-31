@@ -1,5 +1,6 @@
+import Back from "@/app/components/back"
 import SearchResultList from "@/app/components/searchResultList"
-import { PeopleFetch } from "@/lib/characters"
+import { Person } from "@/lib/characters"
 
 import type { Metadata } from 'next'
 
@@ -11,14 +12,14 @@ export const metadata: Metadata = {
 
 export default async function SearchFormAndResultsWithKeyword({params}: {params: {keyword: string}}) {
 
-    const results = await fetch(`${process.env.SWAPI_URL}?search=${params.keyword || ''}`, { cache: 'force-cache' })
+    const results = await fetch(`http://localhost:3000/api/swapi/people/${params.keyword}`, { cache: 'force-cache' })
 
-    const parsedResult: PeopleFetch = await results.json()
-    const people = parsedResult.results
+    const people: Person[] = await results.json()
 
     return (
         <>
         <div>
+            <Back></Back>
             <SearchResultList results={people}></SearchResultList>
         </div>
         </>

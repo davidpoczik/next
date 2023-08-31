@@ -5,7 +5,7 @@ import { RootState } from "../store/authStore"
 import { useSelector } from "react-redux"
 
 
-export default function CompareButton({id} : {id:string}) {
+export default function CompareButton({id} : {id?:string}) {
     const userState = useSelector((state: RootState)=> state.user)
     const {user} = userState
     const isLoggedIn = !!user
