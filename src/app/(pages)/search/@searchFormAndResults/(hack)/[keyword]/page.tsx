@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default async function SearchFormAndResultsWithKeyword({params}: {params: {keyword: string}}) {
 
-    const results = await fetch(`http://localhost:3000/api/swapi/people/${params.keyword}`, { cache: 'force-cache' })
+    const results = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/swapi/people/${params.keyword}`, { cache: 'force-cache' })
 
     const people: Person[] = await results.json()
 
