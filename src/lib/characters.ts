@@ -12,6 +12,7 @@ export type Person = {
 export type PromisePerson = Person | Promise<Person>
 
 export const getPerson = async (id: string) => {
+    console.log('hit',process.env.NEXT_PUBLIC_URL)
     const result = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/swapi/person/${id}`, { cache: 'force-cache' })
     const person: Person = await result.json()
     return person
