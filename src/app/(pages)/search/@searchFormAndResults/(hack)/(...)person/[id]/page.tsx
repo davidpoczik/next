@@ -17,6 +17,7 @@ export default async function Person({ params }: { params: { id: string } }) {
     return (
         <Modal>
             <h3>intercepted</h3>
+            <p>reload page for checking the real detail page</p>
             <PersonItem person={person} isListItem={false}></PersonItem>
         </Modal>
     )
